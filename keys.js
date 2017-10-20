@@ -19,11 +19,3 @@ module.exports = {
 
 
 
-
-
-
-// spotify client id: d91654877b3b429196a052bc5c109f6c
-
-// spotify client secret: 34476f610a7f418cab25fdcea782f801
-
-// OMDB key : 40e9cece
