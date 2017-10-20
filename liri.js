@@ -8,7 +8,7 @@
 var keys = require("./keys.js");
 var fs = require('fs');
 var twitter = require('twitter');
-var spotify = require('spotify');
+var spotify = require('node-spotify-api');
 var request = require('request');
 
 
@@ -77,6 +77,44 @@ var getMeMovie = function(movieName) {
 
 }
 
+var getArtistNames = function(artist) {
+  return artist.name;
+};
+
+var getMeSpotify = function(songName) {
+  console.log(keys)
+
+  var spotifyKeys = new Spotify({
+    spotifyId: clientId,
+    spotifySecret: clientSecret
+  });
+  
+  if (songName === undefined) {
+    songName = 'I want it that way';
+  };
+
+  spotify.search({ type: 'track', query: songName }, function(err, data) {
+    if (err) {
+      console.log('Error occurred: ' + err);
+      return;
+    }
+
+    var songs = data.tracks.items;
+    var data = []; 
+
+    for (var i = 0; i < songs.length; i++) {
+      data.push({
+        'artist(s)': songs[i].artists.map(getArtistNames),
+        'song name: ': songs[i].name,
+        'preview song: ': songs[i].preview_url,
+        'album: ': songs[i].album.name,
+      });
+    }
+    console.log(data);
+    writeToLog(data);
+  });
+};
+
 var pick = function(caseData, functionData) {
   switch (caseData) {
     case 'my-tweets':
@@ -92,11 +130,10 @@ var pick = function(caseData, functionData) {
       doWhatItSays();
       break;
     default:
-      console.log('LIRI doesn\'t know that');
+      console.log('I do not know this command');
   }
 }
 
-//user will pass  an argument within the pick function
 
 var userInput = process.argv[2]
 
