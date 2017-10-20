@@ -1,0 +1,9 @@
+
+
+[{}]
+
+[{}]
+
+[{"Title: ":"Rush Hour","Year: ":"1998","Rated: ":"PG-13","IMDB Rating: ":"6.9","Country: ":"USA","Language: ":"English, Cantonese, Mandarin","Plot: ":"A loyal and dedicated Hong Kong inspector teams up with a reckless and loudmouthed LAPD detective to rescue the Chinese Consul's kidnapped daughter, while trying to arrest a dangerous crime lord along the way.","Actors: ":"Ken Leung, Jackie Chan, Tom Wilkinson, Tzi Ma"}]
+
+[{"Title: ":"Space Jam","Year: ":"1996","Rated: ":"PG","IMDB Rating: ":"6.3","Country: ":"USA","Language: ":"English","Plot: ":"In a desperate attempt to win a basketball match and earn their freedom, the Looney Tunes seek the aid of retired basketball champion, Michael Jordan.","Actors: ":"Michael Jordan, Wayne Knight, Theresa Randle, Manner Washington"}]

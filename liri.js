@@ -4,7 +4,7 @@
 // * movie-this
 // * do-what-it-says
 
-//these add other programs to this one
+
 var keys = require("./keys.js");
 var fs = require('fs');
 var twitter = require('twitter');
@@ -42,7 +42,6 @@ client.get('statuses/user_timeline', params, function(error, tweets, response) {
 
 }
 
-getTweets();
 
 
 var getMeMovie = function(movieName) {
@@ -51,9 +50,10 @@ var getMeMovie = function(movieName) {
     movieName = 'Rush Hour';
   }
 
-  var urlHit = "http://www.omdbapi.com/?t=" + movieName + "&y=&plot=full&tomatoes=true&r=json";
+  var urlHit = "http://www.omdbapi.com/?t=" + movieName + "&y=&plot=short&apikey=40e9cece";
 
   request(urlHit, function(error, response, body) {
+    console.log('return anything?');
     if (!error && response.statusCode == 200) {
       var data = [];
       var jsonData = JSON.parse(body);
@@ -76,6 +76,34 @@ var getMeMovie = function(movieName) {
   });
 
 }
+
+var pick = function(caseData, functionData) {
+  switch (caseData) {
+    case 'my-tweets':
+      getTweets();
+      break;
+    case 'spotify-this-song':
+      getMeSpotify(functionData);
+      break;
+    case 'movie-this':
+      getMeMovie(functionData);
+      break;
+    case 'do-what-it-says':
+      doWhatItSays();
+      break;
+    default:
+      console.log('LIRI doesn\'t know that');
+  }
+}
+
+//user will pass  an argument within the pick function
+
+var userInput = process.argv[2]
+
+var movieTitle = process.argv[3]
+
+pick(userInput, movieTitle);
+
 
 
 
