@@ -1,8 +1,8 @@
-//Liri takes the following arguments:
-// * my-tweets
-// * spotify-this-song
-// * movie-this
-// * do-what-it-says
+//LIRI takes the following arguments:
+// my-tweets
+// spotify-this-song
+// movie-this
+// do-what-it-says
 
 
 var keys = require("./keys.js");
@@ -11,6 +11,13 @@ var twitter = require('twitter');
 var spotify = require('node-spotify-api');
 var request = require('request');
 
+//initialize twitter keys
+var consumerKey = keys.twitterKeys.consumer_key;
+var consumerSecretKey = keys.twitterKeys.consumer_secret;
+var accessToken = keys.twitterKeys.access_token_key;
+var accessSecretToken = keys.twitterKeys.access_token_secret;
+
+//initialize spotify keys
 var clientId = keys.spotifyKeys.client_id;
 var clientSecret = keys.spotifyKeys.client_secret;
 
@@ -27,7 +34,15 @@ var writeToLog = function(data) {
 }
 
 function getTweets () {
-var client = new twitter(keys) 
+
+var twitter = require('twitter');
+ 
+var client = new twitter({
+  consumer_key: consumerKey,
+  consumer_secret: consumerSecretKey,
+  access_token_key: accessToken,
+  access_token_secret: accessSecretToken
+});
 
 var params = {screen_name: 'bebechan_bichon'};
 client.get('statuses/user_timeline', params, function(error, tweets, response) {
@@ -43,7 +58,6 @@ client.get('statuses/user_timeline', params, function(error, tweets, response) {
 });
 
 }
-
 
 var getMeMovie = function(movieName) {
 
@@ -137,7 +151,6 @@ var pick = function(caseData, functionData) {
   }
 }
 
-
 var doWhatItSays = function() {
   fs.readFile("random.txt", "utf8", function(error, data) {
     console.log(data);
@@ -153,11 +166,8 @@ var doWhatItSays = function() {
   });
 }
 
-
 var userInput = process.argv[2]
-
 var movieTitle = process.argv[3]
-
 pick(userInput, movieTitle);
 
 
