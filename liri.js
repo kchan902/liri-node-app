@@ -11,6 +11,8 @@ var twitter = require('twitter');
 var spotify = require('node-spotify-api');
 var request = require('request');
 
+var clientId = keys.spotifyKeys.client_id;
+var clientSecret = keys.spotifyKeys.client_secret;
 
 var writeToLog = function(data) {
   fs.appendFile("log.txt", '\r\n\r\n');
@@ -41,7 +43,6 @@ client.get('statuses/user_timeline', params, function(error, tweets, response) {
 });
 
 }
-
 
 
 var getMeMovie = function(movieName) {
@@ -81,12 +82,14 @@ var getArtistNames = function(artist) {
   return artist.name;
 };
 
-var getMeSpotify = function(songName) {
-  console.log(keys)
 
-  var spotifyKeys = new Spotify({
-    spotifyId: clientId,
-    spotifySecret: clientSecret
+var getMeSpotify = function(songName) {
+
+  var spotify = require('node-spotify-api');
+ 
+  var spotify = new spotify({
+    id: clientId,
+    secret: clientSecret
   });
   
   if (songName === undefined) {
@@ -132,6 +135,22 @@ var pick = function(caseData, functionData) {
     default:
       console.log('I do not know this command');
   }
+}
+
+
+var doWhatItSays = function() {
+  fs.readFile("random.txt", "utf8", function(error, data) {
+    console.log(data);
+    writeToLog(data);
+    var dataArr = data.split(',')
+
+    if (dataArr.length == 2) {
+      pick(dataArr[0], dataArr[1]);
+    } else if (dataArr.length == 1) {
+      pick(dataArr[0]);
+    }
+
+  });
 }
 
 
