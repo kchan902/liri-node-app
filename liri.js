@@ -1,9 +1,8 @@
-//LIRI takes the following arguments:
+//LIRI will understand the following node arguments:
 // my-tweets
 // spotify-this-song
 // movie-this
 // do-what-it-says
-
 
 var keys = require("./keys.js");
 var fs = require('fs');
@@ -11,13 +10,13 @@ var twitter = require('twitter');
 var spotify = require('node-spotify-api');
 var request = require('request');
 
-//initialize twitter keys
+//twitter keys
 var consumerKey = keys.twitterKeys.consumer_key;
 var consumerSecretKey = keys.twitterKeys.consumer_secret;
 var accessToken = keys.twitterKeys.access_token_key;
 var accessSecretToken = keys.twitterKeys.access_token_secret;
 
-//initialize spotify keys
+//spotify keys
 var clientId = keys.spotifyKeys.client_id;
 var clientSecret = keys.spotifyKeys.client_secret;
 
@@ -33,7 +32,7 @@ var writeToLog = function(data) {
   });
 }
 
-function getTweets () {
+var getTweets = function() {
 
 var twitter = require('twitter');
  
@@ -46,18 +45,20 @@ var client = new twitter({
 
 var params = {screen_name: 'bebechan_bichon'};
 client.get('statuses/user_timeline', params, function(error, tweets, response) {
-  if (!error) {
 
-    for (i = 0; i < tweets.length; i++) {
-      console.log(tweets[i].created_at);
-      console.log(tweets[i].text);
+    if (!error) {
+      var data = []; 
+      for (var i = 0; i < tweets.length; i++) {
+        data.push({
+            'created at: ' : tweets[i].created_at,
+            'Tweets: ' : tweets[i].text,
+        });
+      }
+      console.log(data);
+      writeToLog(data);
     }
-    console.log(tweets);
-  }
-
-});
-
-}
+  });
+};
 
 var getMeMovie = function(movieName) {
 
@@ -87,9 +88,8 @@ var getMeMovie = function(movieName) {
   });
       console.log(data);
       writeToLog(data);
-}
+    }
   });
-
 }
 
 var getArtistNames = function(artist) {
@@ -162,7 +162,6 @@ var doWhatItSays = function() {
     } else if (dataArr.length == 1) {
       pick(dataArr[0]);
     }
-
   });
 }
 
